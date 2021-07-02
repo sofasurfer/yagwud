@@ -26,30 +26,81 @@
                 background-color: black;
             }
 
-            a{
-                cursor: default;
+            body.overlay{
+                /*overflow: hidden;*/
             }
-            img2{
-                display: inline-block;
-                min-width: 500px;
-                max-width: 1200px;
+
+            a{
+                /*cursor: default;*/
+            }
+            body.overlay #overlay{
+                position: fixed;
+                z-index: 10;
+                top: 0px;
+                left: 0px;
+                width: 100vw;
+                height: 100vh;
+                background-color: black;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .close {
+              position: absolute;
+              right: 50px;
+              top: 32px;
+              width: 32px;
+              height: 32px;
+              opacity: 1;
+            }
+            .close:before, .close:after {
+              position: absolute;
+              left: 15px;
+              content: ' ';
+              height: 33px;
+              width: 2px;
+              background-color: #fff;
+              transition: all .5s;
+            }
+            .close:before {
+              transform: rotate(45deg);
+            }
+            .close:after {
+              transform: rotate(-45deg);
+            }
+
+            .close:hover:before,
+            .close:hover:after {
+              width: 4px;
             }
 
         </style>
+        <script>
+            var img_active = 0;
+            var images = array();
+        </script>
     </head>
     <body id="top">
 
+        <div id="overlay">
+            <!--
+            <div class="close"></div>
+            <div class="next"></div>
+            <div class="next"></div>
+            -->
+        </div>
         <div id="pgallery">
 
             <?php
             $files = scandir('assets/images/');
+            $index = 0;
             foreach($files as $file):
                 if( strpos($file,".") > 2 ):
                 ?>
-
-                <a href="/assets/images/<?= $file;?>" target="_blank"><img  src="/assets/images/<?= $file;?>"/></a>
-
-                <?php 
+                <a href="/assets/images/<?= $file;?>" target="_blank" data-index="<?=$index;?>"><img  src="/assets/images/<?= $file;?>"/></a>
+                <?php
+                $index++;
                 endif;
             endforeach; ?>
                 
@@ -67,17 +118,28 @@
         var scrollPos = 0;
         $(function() {
 
-            $("#pgallery2").justifiedGallery();
-
             $("#pgallery").justifiedGallery({
                 margins: 10,
                 rowHeight: 500
             });
 
+
+
             $('a').click(function(e) {
                 e.preventDefault();
+                $('body').addClass('overlay');
+                $('#overlay').css('background-image', 'url(' + $(this).attr('href') + ')');
+                $(this).addClass('active');
             });
 
+            $('.close').click(function(e) {
+                e.preventDefault();
+                $('body').removeClass('overlay');
+            });
+            $('#overlay').click(function(e) {
+                e.preventDefault();
+                $('body').removeClass('overlay');
+            });
         });
 
 
