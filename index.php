@@ -78,7 +78,7 @@
         </style>
         <script>
             var img_active = 0;
-            var images = array();
+            var images = [];
         </script>
     </head>
     <body id="top">
@@ -94,11 +94,12 @@
 
             <?php
             $files = scandir('assets/images/');
-            $index = 0;
+            $index = 1;
             foreach($files as $file):
                 if( strpos($file,".") > 2 ):
                 ?>
                 <a href="/assets/images/<?= $file;?>" target="_blank" data-index="<?=$index;?>"><img  src="/assets/images/<?= $file;?>"/></a>
+                <script>images.push('/assets/images/<?= $file;?>');</script>
                 <?php
                 $index++;
                 endif;
@@ -110,6 +111,27 @@
         <script src="/assets/js/default.js"></script>
 
         <script>
+
+        function checkKey(e) {
+            var event = window.event ? window.event : e;
+            if( event.keyCode == 37 ){
+                if(img_active > 1){
+                    img_active = img_active-1;
+                }else{
+                    img_active = images.length;
+                }
+                $('#overlay').css('background-image', 'url(' + images[img_active] + ')');
+            }else if( event.keyCode == 39 ){
+                if(img_active < images.length){
+                    img_active = img_active+1;
+                }else{
+                    img_active = 0;
+                }
+                $('#overlay').css('background-image', 'url(' + images[img_active] + ')');
+            }
+        }
+        document.addEventListener('keyup', checkKey);
+
         /*
 
             When page is loaded
@@ -123,13 +145,11 @@
                 rowHeight: 500
             });
 
-
-
             $('a').click(function(e) {
                 e.preventDefault();
                 $('body').addClass('overlay');
                 $('#overlay').css('background-image', 'url(' + $(this).attr('href') + ')');
-                $(this).addClass('active');
+                img_active = $(this).data('index');
             });
 
             $('.close').click(function(e) {
