@@ -19,63 +19,9 @@
         <!-- Disable Skype browser-plugin -->
         <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
 
+        <link rel="stylesheet" href="/assets/css/justifiedGallery.css">
         <link rel="stylesheet" href="/assets/css/main.css">
 
-        <style>
-            body{
-                background-color: black;
-            }
-
-            body.overlay{
-                /*overflow: hidden;*/
-            }
-
-            a{
-                /*cursor: default;*/
-            }
-            body.overlay #overlay{
-                position: fixed;
-                z-index: 10;
-                top: 0px;
-                left: 0px;
-                width: 100vw;
-                height: 100vh;
-                background-color: black;
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-            }
-
-            .close {
-              position: absolute;
-              right: 50px;
-              top: 32px;
-              width: 32px;
-              height: 32px;
-              opacity: 1;
-            }
-            .close:before, .close:after {
-              position: absolute;
-              left: 15px;
-              content: ' ';
-              height: 33px;
-              width: 2px;
-              background-color: #fff;
-              transition: all .5s;
-            }
-            .close:before {
-              transform: rotate(45deg);
-            }
-            .close:after {
-              transform: rotate(-45deg);
-            }
-
-            .close:hover:before,
-            .close:hover:after {
-              width: 4px;
-            }
-
-        </style>
         <script>
             var img_active = 0;
             var images = array();
@@ -111,9 +57,7 @@
 
         <script>
         /*
-
             When page is loaded
-
         */
         var scrollPos = 0;
         $(function() {
@@ -122,8 +66,6 @@
                 margins: 10,
                 rowHeight: 500
             });
-
-
 
             $('a').click(function(e) {
                 e.preventDefault();
@@ -146,8 +88,8 @@
 
         </script>
 
-      <!-- Matomo -->
-      <script type="text/javascript">
+        <!-- Matomo -->
+        <script type="text/javascript">
         var _paq = _paq || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
         _paq.push(['trackPageView']);
@@ -159,8 +101,8 @@
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
           g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
-      </script>
-      <!-- End Matomo Code -->  
+        </script>
+        <!-- End Matomo Code -->  
 
     </body>
 </html>
